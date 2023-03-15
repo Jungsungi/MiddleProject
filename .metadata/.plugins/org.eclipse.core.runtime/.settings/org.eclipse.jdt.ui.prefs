@@ -1,8 +1,0 @@
-content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.springframework.security.web.util.matcher.RequestMatcher"><rhs name\="org.springframework.security.web.util.matcher.AntPathRequestMatcher"/></lhs><lhs name\="org.springframework.web.servlet.ModelAndView"><rhs name\="org.springframework.web.servlet.ModelAndView"/></lhs><lhs name\="java.util.Map"><rhs name\="java.util.HashMap"/></lhs><lhs name\="java.lang.Cloneable"><rhs name\="java.util.HashMap"/></lhs><lhs name\="java.util.AbstractMap"><rhs name\="java.util.HashMap"/></lhs><lhs name\="java.util.HashMap"><rhs name\="java.util.HashMap"/></lhs><lhs name\="com.example.project2.vo.RecomentVO"><rhs name\="com.example.project2.vo.RecomentVO"/></lhs><lhs name\="com.example.project2.vo.AlarmVO"><rhs name\="com.example.project2.vo.AlarmVO"/></lhs><lhs name\="org.springframework.web.multipart.MultipartRequest"><rhs name\="org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest"/></lhs></history>
-content_assist_number_of_computers=15
-eclipse.preferences.version=1
-org.eclipse.jdt.ui.formatterprofiles.version=22
-spelling_locale_initialized=true
-typefilter_migrated_2=true
-useAnnotationsPrefPage=true
-useQuickDiffPrefPage=true

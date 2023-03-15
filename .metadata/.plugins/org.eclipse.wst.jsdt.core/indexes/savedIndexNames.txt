@@ -1,9 +1,0 @@
-INDEX VERSION 1.4+/Users/sungijung/spring_project/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-2161098289.index
-317682255.index
-1296604839.index
-3688282204.index
-2200650775.index
-2306114103.index
-1039222381.index
-3057036605.index
