@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/style.css?ver=3">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style type="text/css">
+* {
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	width: 1536px;
+}
+span {
+	margin-top: 40px;
+}
+footer {
+	position: absolute;
+	bottom: 0px;
+	left: 50%;
+}
+#house_info {
+	display: flex;
+}
+#main_header {
+	/* position:fixed; */
+	height: 80px;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+	
+}
+#main_header h1 {
+	color: #F6323E;
+	font-family: '여기어때 잘난체 OTF';
+	margin-left: 50px;
+}
+#main_header a {
+	text-decoration: none;
+	color:  #F6323E;
+}
+#topMenu {
+	height: 30px;
+	width: 800px;
+}
+#topMenu ul li {
+	list-style: none;
+	float: left;
+	text-align: center;
+	align-items: center;
+	line-height: 30px;
+	vertical-align: middle;
+}
+#topMenu .menu_link {
+	text-decoration: none;
+	display: block;
+	width: 150px;
+	color: gray;
+}
+#topMenu .menu_link:hover {
+	color: #F6323E;
+	font-weight: bold;
+}
+#main_body {
+	background: #F6323E;
+	height: 500px;
+	width: 100%;
+	padding-top: 100px;
+}
+#btn_plus {
+	position: absolute;
+	left: 50%;
+}
+.opt_icon {
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+	margin-top: 15px;
+}
+#mini_box {
+	border: 1px solid rgb(223, 223, 223);
+	position: relative;
+	width: 410px;
+	height: 370px;
+	float: right;
+	background: #ffffff;
+	box-shadow: rgb(0 0 0 / 10%) 0px 10px 20px;
+	border-radius: 2px;
+}
+article {
+	width: 80%;
+	margin: auto;
+}
+#house_img {
+	padding: 30px 0 30px 0;
+	display: inline-block;
+	position: relative;
+}
+#house_name {
+	padding: 15px 0;
+	font-size: 2em;
+}
+#house_info {
+	padding: 0 0 30px 0;
+}
+table {
+	height: 300px;
+}
+#map {
+	margin-top: 30px;
+}
+#house_loc {
+	margin-top: 10px;
+}
+#container {
+	height: 900px;
+	overflow: hidden;
+}
+#opt {
+	margin-top: 40px;
+}
+#detail {
+	margin-top: 30px;
+	width: 70%;
+}
+#house_detail {
+	margin-top: 20px;
+	border: 1px solid black;
+	width: 66.4%;
+}
+#recoment_box {
+	margin-top: 30px;
+	width: 70%;
+}
+#recoment {
+	
+}
+#recoment_form button {
+	margin-left: 20px;
+	padding : 10px;
+}
+button{
+	width: 100px;
+	height: 50px;
+	opacity: 50%;
+}
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+.modal.show {
+  display: block;
+}
+.modal_body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1200px;
+  height: 600px;
+  padding: 40px;
+  text-align: center;
+  background-color: #ffffff;
+  
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  transform: translateX(-50%) translateY(-50%);
+}
+ul{
+   list-style:none;
+   }
+#re_list{
+	margin-left: 10px;
+}
+.recoment{
+	margin-top: 10px;
+	width : 70%;
+	background: #E5E5E5;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 10px;
+}
+.active{
+	background: #F6323E;
+	color: white;
+}
+.post-slider .next {
+      position: absolute;
+      top: 50%;
+      right: 30px;
+      font-size: 2em;
+      color: gray;
+      cursor: potiner;
+   }
+.post-slider .prev{
+      position:absolute;
+      top:50%;
+      left:30px;
+      font-size:2em;
+      color:gray;
+      cursor: pointer;
+   }
+#mini_box div{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+</style>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f12cedc04a3b71edb51a90ae7835e50f"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			
+			var house_id = $("#house_id").val();
+			var lat = $("#lat").val();
+			var lng = $("#lng").val();
+			var house_name = $("#house_name").val();
+			var house_no = $("#house_no").val();
+			var img_fname = $("#img_fname").val();
+			var state = $("#state").val();
+			var reno = null;
+			
+			var loginId = sessionStorage.getItem("id");
+			console.log(state)
+			
+			sessionStorage.setItem("house_no", house_no);
+			
+			// 관심목록 폼에 정보를 넣는 부분
+			$("#inter_title").val(house_name);
+			$("#inter_img").val(img_fname);
+			$("#id").val(loginId);
+			$("#house_id2").val(house_id);
+			$("#house_no2").val(house_no);
+			
+			//로그인 상태에 따른 화면 출력 다르게 하기
+			if((house_id == loginId)&& state == "Y"){
+				var btn_sell = $("<button></button>").html("거래 완료").css({
+					position : "absolute",
+					bottom : "0px",
+					left : "50%",
+					marginLeft : "-120px",
+					marginBottom : "10px"
+				}).addClass("btn_sell");
+				
+				var btn_delete = $("<button></button>").html("매물 삭제").css({
+					position : "absolute",
+					bottom : "0px",
+					left : "50%",
+					marginLeft : "20px",
+					marginBottom : "10px"
+				}).addClass("btn_delete");
+				
+				$("#mini_box").append(btn_sell, btn_delete);
+				}else if(state =="Y"){
+					var btn_inter = $("<button></button>").html("관심목록 등록").css({
+						position : "absolute",
+						bottom : "0px",
+						left : "50%",
+						marginLeft: "-50px",
+						marginBottom : "10px"
+					}).addClass("btn_inter");
+					$("#mini_box").append(btn_inter);
+					
+				
+				}else if(state != "Y"){
+					var btn_selled = $("<button></button>").html("판매된 상품").css({
+						position : "absolute",
+						bottom : "0px",
+						left : "50%",
+						marginLeft: "-50px",
+						marginBottom : "10px"
+					});
+					$("article").css({
+						
+						opacity : "50%"
+					});
+						$("#mini_box").append(btn_selled);
+					}
+		
+			//관심목록 등록 번튼 눌렀을 때
+			$(document).on("click",".btn_inter", function(){
+				
+				if(loginId == null){
+					alert("먼저 로그인을 해주세요.");
+					location.href="/Login";
+				}else{
+					var data = $("#inter_form").serializeArray();
+					$.ajax({
+						url : "/RegInter",
+						data : data,
+						
+						success: function(re){
+							if(re>=1){
+								alert("관심목록에 등록되었습니다.");
+								
+							}else{
+								alert("관심목록 등록에 실패하였습니다.")
+							}
+						}
+					});
+				}
+			});
+			
+			//거래완료 버튼 눌렀을 때 기능
+			$(document).on("click", ".btn_sell", function(){
+				$.ajax({
+					url : "House_sell",
+					data : {house_no : house_no},
+					success : function(re){
+						if(re>=1){
+							alert("판매완료@");
+							location.reload();
+						}
+					}
+				});
+			});
+			
+			//삭제버튼 눌렀을 때 기능
+			$(document).on("click", ".btn_delete", function(){
+				if(confirm("정말로 삭제하시겠습니까?")){
+					location.href = "deleteHouse.do?house_no="+house_no+""
+				}
+			});
+			
+			
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			mapOption = {
+				center : new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+				level : 1
+			// 지도의 확대 레벨
+			};
+			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+			var map = new kakao.maps.Map(mapContainer, mapOption);
+			
+			//더보기 버튼 눌렀을 때 동작
+			$("#btn_plus").click(function(){
+				$("#container").css({
+					overflow : "visible"
+				});
+				$("#footer").css({
+					position: "absolute",
+					bottom: "0px",
+					left : "50%"
+				});
+				$(this).css({
+					display:"none"
+				});
+				$("#btn_recoment").css({
+					display:"inline"
+				});
+			});
+			
+			//스크롤 이벤트를 통한 mini_box css 조정
+			$(window).scroll(function(){
+				var scrollTop = $(window).scrollTop();
+				var height = $(window).height();
+				var documentHeight = $(document).height();
+				console.log(scrollTop)
+				if(scrollTop >= 595){
+					$("#mini_box").css({
+						border: "1px solid rgb(223, 223, 223)",
+						position : "fixed",
+						left : "80%",
+						top : "0px",
+						width : "410px",
+						boxShadow: "rgb(0 0 0 / 10%) 0px 10px 20px",
+						borderRadius: "2px"
+						
+					});
+				}
+				if(scrollTop < 595){
+					$("#mini_box").css({
+						border: "1px solid rgb(223, 223, 223)",
+						position: "relative",
+						width: "410px",
+						height: "370px",					
+						right : "0px",
+						boxShadow: "rgb(0 0 0 / 10%) 0px 10px 20px",
+						borderRadius: "2px"					
+					});
+				}				
+			});
+			
+		//댓글 버튼 관련 기능들
+			// 댓글 불러오는 함수 생성
+			 var getRecoment =  function(){
+		    	  $.ajax({
+		    		 url : "/LoadRecoment",
+		    		 data : {"house_no" : house_no},
+		    		 success : function(data){
+		    			 $.each(data, function(){
+		    				var li = $("<li></li>").addClass("recoment");
+		    				var un_know = $("<div></div>").html("<b>익명</b>");
+		    				var re_contet = $("<div></div>").html(this.re_content);
+		    				var re_no = $("<div></div>").html(this.reno).css({
+		    					display : "none"
+		    				}).addClass("reno");
+		    				var re_pwd = $("<div></div>").html(this.re_pwd).css({
+		    					display : "none"
+		    				});
+		    				$(li).append(un_know, re_contet, re_no, re_pwd);
+		    				 
+		    				$("#re_list").append(li);
+		    			 });
+		    		 }
+		    	  });
+		      }
+		
+		      getRecoment();
+			
+			//댓글 등록버튼 눌렀을 때 댓글 등록기능
+			$("#btn_Recoment").click(function(e){
+				var data = $("#recoment_form").serializeArray();
+				e.preventDefault();
+				$("#re_content").val("");
+				$("#re_pwd").val("");
+				if(loginId != null){
+					$.ajax({
+						url : "/InsertRecoment",
+						data : data,
+						success : function(re){
+							if(re >=1){
+								alert("댓글이 등록되었습니다.")
+								$("#re_list").empty();
+								getRecoment();
+							}
+						}
+					});
+				}else{
+					alert("로그인 이후에 댓글 작성이 가능합니다.");
+				}
+				
+			});
+			
+			//댓글 삭제버튼 눌렀을 때 댓글 삭제기능
+			$("#btn_Redelete").click(function(e){
+				var pwd_check = prompt("비밀번호를 입력해주세요");
+				var pwd = $("#re_del_pwd").val();
+				e.preventDefault();
+				if(pwd == pwd_check ){
+					$.ajax({
+						url : "/DeleteRecoment",
+						data : {reno : reno},
+						success : function(re){
+							$("#re_list").empty();
+							getRecoment();
+						}
+					});
+					
+				}else{
+					alert("비밀번호를 확인해 주세요!")
+				}
+				
+			});
+			
+			//댓글 클릭했을 때 해당 댓글 값 불러와 hidden으로 저장		
+			$(document).on("click",".recoment", function(){
+				$("li").removeClass("active");
+				$(this).addClass("active");
+				var div = $(this).find("div");
+				reno = $(div[2]).html();
+				console.log(reno);
+				$("#re_del_content").val($(div[1]).html());
+				$("#re_del_pwd").val($(div[3]).html());
+				
+			});
+			
+			//사진 더보기 버튼 눌렀을 때 갤러리 띄워질 모달 생성
+			const body = document.querySelector('body');
+		      const modal = document.querySelector('.modal');
+		      const btnOpenPopup = document.querySelector('.btn-open-popup');
+		      btnOpenPopup.addEventListener('click', () => {
+		        modal.classList.toggle('show');
+		        if (modal.classList.contains('show')) {
+		          body.style.overflow = 'hidden';
+		        }
+		      });
+		      modal.addEventListener('click', (event) => {
+		        if (event.target === modal) {
+		          modal.classList.toggle('show');
+		          if (!modal.classList.contains('show')) {
+		            body.style.overflow = 'auto';
+		          }
+		        }
+		      });
+		      
+		      //갤러리 동작하는 부분
+		      var width = $('[data-role="slider"]').attr('data-width');
+		      var height = $('[data-role="slider"]').attr('data-height');
+		      var count = $('[data-role="slider"] div.item').length;
+		      
+		      $('[data-role="slider"]').css({
+		    	  position : "relative",
+		    	  overflow: "hidden",
+		    	  width : width,
+		    	  height : height,
+		    	  left : "50%",
+		    	  marginLeft : -(width/2)
+		      }).find(".container").css({
+		    	  position: "absolute",
+		    	  width : count * width,
+		    	  overflow:"hidden"
+		      }).find(".item").css({
+		    	  width : width,
+		    	  height : height,
+		    	  float : "left"
+		    	  
+		      });
+		      
+		      var currentPage =0;
+		      var changePage = function(){
+		    	  $('[data-role="slider"] > .container').animate({
+		    		 left : -currentPage * width 
+		    	  },500);
+		      }
+		      $("#left-button").click(function(){
+		    	 if(currentPage > 0){
+		    		 currentPage = currentPage -1;
+		    		 changePage();
+		    	 } 
+		      });
+		      
+		      $("#right-button").click(function(){
+		    	 if(currentPage < count - 1){
+		    		 currentPage = currentPage + 1;
+		    		 changePage();
+		    	 } 
+		      });
+		      
+		      //헤더부분의 로그인 항목을 로그인 유무에 따라 다르게 하는 코드
+		      var loginId = sessionStorage.getItem("id");
+				if(loginId != null){
+					$("#loginId").html(loginId+"님 / 로그아웃");
+				}else{
+					$("#loginId").html("로그인/회원가입");
+				
+				}
+				$("#loginId").click(function(){
+					if($(this).html()== "로그인/회원가입" ){
+						document.location.href="/Login";
+					}else{
+						sessionStorage.removeItem("id")
+						document.location.href="/logout";
+					}
+					
+				});
+			
+		});
+	</script>
+</head>
+<body>
+	<!-- 모달로 사진 갤러리를 여는 것 -->
+	 <div class="modal">
+      <div class="modal_body post-slider">
+      	<div data-role ="slider" data-width="800" data-height="500">
+      		<div class="container">
+			    <div class = "item" th:each="i:${img_list}">
+			    	<img th:src="@{'/images/'+${i.img_fname }}" style="width: 800px; height: 500px; left: 50%;">
+			    </div>
+		    </div>
+		</div>
+			<i class="fa-solid fa-chevron-left prev" id="left-button"></i>      
+            <i class="fa-solid fa-chevron-right next" id="right-button"></i>
+		</div>
+    </div>
+   
+   	<form id="data"> <!-- 집에 대한 정보 다 히든으로 받을 폼 -->
+		<input type="hidden" id="house_id" name="house_id2" th:value="${house_list.id }">
+		<input type="hidden" id="lat" th:value="${house_list.lat }">
+		<input type="hidden" id="lng" th:value="${house_list.lng }">
+		<input type="hidden" id="house_name" name="house_name" th:value="${house_list.house_name }">
+		<input type="hidden" id="house_no" name="house_no2" th:value="${house_list.house_no }">
+		<input type="hidden" id="img_fname" th:value="${mainImg}"> 
+		<input type="hidden" id="state" th:value=${house_list.state}>
+	</form>
+	
+		<!-- 관심목록에 들어갈 정보를 담을 폼 -->
+	<form id="inter_form">
+		<input type="hidden" id="inter_title" name="inter_title">
+		<input type="hidden" id="inter_img" name="inter_img">
+		<input type="hidden" id="id" name="id">
+		<input type="hidden" id="house_id2" name="house_id">
+		<input type="hidden" id="house_no2" name="house_no">
+	</form>
+	
+	<header id="main_header">
+		<h1><a href="/main" >이방어때</a></h1>
+		<nav id="topMenu">
+			<ul>
+				<li><a class="menu_link" href="#">지도</a></li>
+				<li><a class="menu_link" href="#">관심목록</a></li>
+				<li><a class="menu_link" href="#">방내놓기</a></li>
+				<li><a class="menu_link" href="#">알림</a></li>
+				<li><a class="menu_link" href="#" id="loginId"></a></li>
+			</ul>
+		</nav>
+	</header>
+	<article>
+		<div id="container">
+			<div id="main_container">
+				<div id="title">
+					<a href="">< 돌아가기</a>
+						<h1 id="house_name" th:text="${house_list.house_name }"></h1>
+						<div id="loc" th:text="${house_list.loc }"></div>
+					<hr>
+				</div>
+				<div id="house_img" style="height : 300px">
+					
+					<img height="300px" width="60%" th:src="@{'/images/'+${mainImg}}">
+					<img height="300px" width="20%" th:src="@{'/images/'+${img1}}" th:if="${img1 != null}">
+					<img height="300px" width="19%" th:src="@{'/images/'+${img2}}" th:if="${img1 != null}">
+					
+					<button class="btn-open-popup">사진 전체 보기</button>
+				</div>
+				<div id="mini_box">
+					<div style="border:1px solid rgb(101, 101, 101); width: 100px; text-align: center; margin-top: 20px">매물번호 [[${house_list.house_no }]]</div>
+					<div style="margin-top: 20px; font-size: 1.5em"><h1>[[${house_list.house_name }]]</h1></div>
+					<div style="margin-top: 5px"><h3>[[${house_list.loc }]]</h3></div>
+					<div style="margin-top: 20px; "><h1>[[${house_list.type }]]</h1></div>
+					<div style="margin-top: 20px; "><h1>[[${house_list.deposit}]]/[[${house_list.price }]]</h1></div>
+					<div style="margin-top: 20px"><b>판매자</b> : [[${house_list.id }]]</div>
+					<div style="margin-top: 20px" id="phone"><b>연락처</b> : [[${phone}]] </div>
+				</div>
+				<div id="house_info">
+					<div id="price_info">
+						<table width="300px">
+							<tr>
+								<td colspan="2"><h3 style="font-size: 27px">가격정보</h3></td>
+							</tr>
+							<tr>
+									<td id="deal_type"><b>[[${house_list.deal_type }]]</b></td>
+									<td id="house_price">[[${house_list.price }]]만원</td>
+							</tr>
+							<tr>
+								<td><b>관리비</b></td>
+								<td id="mgr">[[${house_list.mgr }]]만원</td>
+								
+
+							</tr>
+							<tr>
+								<td id="mgr_list"></td>
+							</tr>
+							<tr>
+								<td><b>보증금</b></td>
+								<td id="deposit">[[${house_list.deposit }]]만원</td>
+
+							</tr>
+							<tr>
+								<td><b>가까운 지하철역</b></td>
+								<td id="month_price">홍대입구역</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div id="detail_info">
+						<table width="300px" height="400px">
+							<tr>
+								<td colspan="2"><h3 style="font-size: 27px">매물 정보</h3></td>
+							</tr>
+							<tr>
+								<td><b>방 형태</b></td>
+								
+								<td id="house_type" th:text="${house_list.type}"></td>
+							</tr>
+							<tr>
+								<td><b>층수</b></td>
+								<td id="floor">[[${house_list.floor }]]층</td>
+							</tr>
+							<tr>
+								<td><b>방향</b></td>
+								<td id="aspect" th:text="${house_list.aspect }"></td>
+							</tr>
+							<tr>
+								<td><b>주차 가능여부</b></td>
+								<td id="opt_park" th:if="${opt_list.opt_park}=='Y'">가능</td>	
+								
+								<td id="opt_park" th:if="${opt_list.opt_park}!='Y'">불가능</td>
+							</tr>
+							
+						</table>
+					</div>
+				</div>
+			</div>
+			<button id="btn_plus">더보기</button>
+			<div id="add_container">
+				<div id="house_detailInfo" class="info">
+					<h3 style="font-size: 27px">매물 상세 정보</h3>
+					<table width="600px">
+						<tr>
+							<td><b>방 종류</b></td>
+							<td th:text="${house_list.type }"></td>
+						</tr>
+						<tr>
+							<td><b>건물 층</b></td>
+							<td th:text = "${house_list.floor }"></td>
+						</tr>
+						<tr>
+							<td><b>전용면적</b></td>
+							<td th:text="${house_list.area }"></td>
+						</tr>
+						<tr>
+							<td><b>방향</b></td>
+							<td th:text="${house_list.aspect }"></td>
+						</tr>
+						<tr>
+							<td><b>월/전세</b></td>
+							<td th:text="${house_list.deal_type }"></td>
+						</tr>
+						<tr>
+							<td><b>가격</b></td>
+							<td th:text="${house_list.price }"></td>
+						</tr>
+						<tr>
+							<td><b>보증금</b></td>
+							<td th:text="${house_list.deposit }"></td>
+						</tr>
+						<tr>
+							<td><b>입주 가능일</b></td>
+							<td th:text="${house_list.input_date }"></td>
+						</tr>	
+					</table>
+				</div>
+				
+				<div id="detail_loc" class="info">
+					<div style="height: 35px"></div>
+					<h3 style="font-size: 27px">상세 위치</h3>
+					<div id="house_loc" th:text="${house_list.loc }"></div>
+					<div id="map" style="width: 50%; height: 350px;"></div>
+				</div>
+				
+				<div id=opt class="info">
+					<h3 style="font-size: 27px">옵션</h3>
+					<span id="option_icon"> 					
+							<img src="/images/park.png" class="opt_icon" th:if="${opt_list.opt_park == 'Y'}">
+
+							<img src="/images/aircon.png" class="opt_icon" th:if="${opt_list.opt_aircon == 'Y'}">
+
+							<img src="/images/refrige.png" class="opt_icon" th:if="${opt_list.opt_refrige == 'Y'}">
+
+							<img src="/images/washer.png" class="opt_icon" th:if="${opt_list.opt_washer == 'Y'}">
+
+							<img src="/images/gas.png" class="opt_icon" th:if="${opt_list.opt_gas == 'Y'}">
+
+							<img src="/images/micro.png" class="opt_icon" th:if="${opt_list.opt_micro == 'Y'}">
+
+							<img src="/images/elevator.png" class="opt_icon" th:if="${opt_list.opt_elevator == 'Y'}">
+
+							<img src="/images/biltin.png" class="opt_icon" th:if="${opt_list.opt_builtin == 'Y'}">
+					</span>
+				</div>
+				<div id=security class="info">
+					<div style="height: 35px"></div>
+						<h3 style="font-size: 27px">보안시설</h3>
+						<span id="option_icon"> 
+
+							<img src="/images/cctv.png" class="opt_icon" th:if="${seq_list.cctv == 'Y'}">
+
+
+								<img src="/images/videophone.png" class="opt_icon" th:if="${seq_list.videophone == 'Y'}">
+
+
+								<img src="/images/interphone.png" class="opt_icon" th:if="${seq_list.interphone == 'Y'}">
+
+
+								<img src="/images/firealarm.png" class="opt_icon" th:if="${seq_list.firealarm == 'Y'}">
+
+
+								<img src="/images/frontdoor.png" class="opt_icon" th:if="${seq_list.frontdoor == 'Y'}">
+
+						</span>
+						<!-- 옵션 아이콘 줄줄이 넣을 곳 -->
+				</div>
+				<div id="detail" class="info">
+					<h3 style="font-size: 27px">상세 설명</h3>
+					<div id="house_detail" th:text="${house_list.detail }"></div>
+					<div id="recoment_box" class="info">
+						<h3 style="font-size: 27px"><b>댓글 리뷰</b></h3>
+						<div id="recoment">
+							<hr>
+								<div style="display: inline; height: 100%;">
+								<form id = "recoment_form" style="margin-bottom: 10px; margin-top : 10px; margin-bottom: 30px;">
+									<input type="text" id="re_content" name="re_content" placeholder="댓글 내용을 입력해주세요." style="width:250px;height:30px;"> 
+									<input type="password" id="re_pwd" name="re_pwd" placeholder="비밀번호" style="width:100px;height:30px;">
+									<input type="hidden" name="house_no" th:value="${house_list.house_no }">
+									<input type="hidden" name="house_id" th:value="${house_list.id }">
+								</form>
+								
+									<button id="btn_Recoment" style="width : 75px; height : 30px; text-align: center; ">댓글등록</button>
+									<button id="btn_Redelete" style="width : 75px; height : 30px; text-align: center; ">댓글삭제</button>
+								</div>
+								<div id="recoment_print">
+									<ul id="re_list">
+									
+									</ul>
+								</div>
+								<input type="hidden" id="re_del_content">
+								<input type="hidden" id="re_del_pwd">
+								<input type="hidden" id="re_reno">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</article>
+	
+	
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		const msg = $("#msg").val()
+		const id = $("#id").val()
+		if(msg == "로그인에 성공하였습니다."){
+			sessionStorage.setItem("id",id)
+			location.href="/main"
+		}else{
+			alert(msg)
+			location.href="/Login"
+		}
+	});
+</script>
+<body>
+	<input type="hidden" id="msg" th:value="${msg}">
+	<input type="hidden" id="id" th:value="${id}">
+</body>
+</html>

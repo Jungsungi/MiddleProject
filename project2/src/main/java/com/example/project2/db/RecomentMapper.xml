@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recoment">
+
+<!-- house_no로 해당 매물의 모든 댓글을 조회하는 쿼리 -->
+<select id="findByHouseNo" resultType="recomentVO">
+	select * from recoment where house_no = #{house_no}
+</select>
+  
+  <!-- 매물에 댓글을 등록하는 쿼리 -->
+  <insert id="insertRecoment" parameterType="recomentVO">
+  	insert into recoment(reno, re_content, re_pwd, house_no) values(seq_recoment.nextval, #{re_content}, #{re_pwd}, #{house_no})
+  </insert>
+  
+  <!-- 매물에 댓글을 삭제하는 쿼리 -->
+	<delete id="deleteRecoment">
+		delete recoment where reno = #{reno}
+	</delete>
+</mapper>

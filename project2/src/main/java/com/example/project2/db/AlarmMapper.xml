@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="alarm">
+	<!-- 댓글이 등록되었을 때 알림이 생기는  쿼리-->
+  <insert id="insertAlarm_recoment" parameterType="alarmVO">
+  	insert into alarm(al_no, al_content, al_type, id, house_no) values (seq_al.nextval, '게시물에 새로운 댓글이 달렸습니다.', 'recoment', #{id}, #{house_no})
+  </insert>
+  
+  <!-- 관심목록에 담겼을 때 알림이 생기 쿼리-->
+  <insert id="insertAlarm_inter" parameterType="alarmVO">
+  	insert into alarm(al_no, al_content, al_type, id, house_no) values (seq_al.nextval, '누군가 회원님의 게시물을 관심목록에 담았습니다.', 'inter', #{id}, #{house_no})
+  </insert>
+  
+  <!-- 고객에게 있는 모든 알람을 가져오는 쿼리 -->
+  <select id="findById" resultType="alarmVO">
+  	select * from alarm where id = #{id}
+  </select>
+  
+  <!-- 고객에게 있는 모든 알람을 유형별로 가져오는 쿼리 -->
+  <select id="findByIdAndType" resultType="alarmVO">
+  	select * from alarm where id=#{id} and al_type = #{al_type}
+  </select>
+  
+  <!-- 알림을 삭제하는 쿼리 -->
+  <delete id="deleteAlarm" >
+  	delete alarm where al_no = #{al_no}
+  </delete>
+  
+</mapper>

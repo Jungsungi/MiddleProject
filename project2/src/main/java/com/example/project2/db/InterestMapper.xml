@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="inter">
+
+<!-- 회원의 관심목록을 모두 조회하는 쿼리 -->
+<select id="findById" resultType="interestVO">
+	select * from interest where id = #{id}
+</select>
+  
+  <!-- 회원의 관심목록에 매물을 등록하는 쿼리 -->
+  <insert id="insertInter" parameterType="interestVO">
+  	insert into interest(inter_no, inter_title, inter_img, id, house_id, house_no) values(seq_inter.nextval, #{inter_title}, #{inter_img}, #{id}, #{house_id}, #{house_no} )
+  </insert>
+  
+  <!-- 회원의 관심목록의 매물을 등록한 사람의 id를 조회하는 쿼리 -->
+  <select id="getId" resultType="String">
+  	select id, house_no from interest where house_no = #{house_no}
+  </select>
+  
+
+</mapper>

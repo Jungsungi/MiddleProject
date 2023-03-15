@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="com/example/project2/db/db.properties"/>
+	<typeAliases>
+		<typeAlias type="com.example.project2.vo.AlarmVO" alias="alarmVO"/>
+		<typeAlias type="com.example.project2.vo.HouseVO" alias="houseVO"/>
+		<typeAlias type="com.example.project2.vo.ImgVO" alias="imgVO"/>
+		<typeAlias type="com.example.project2.vo.InterestVO" alias="interestVO"/>
+		<typeAlias type="com.example.project2.vo.MemberVO" alias="memberVO"/>
+		<typeAlias type="com.example.project2.vo.MgrVO" alias="mgrVO"/>
+		<typeAlias type="com.example.project2.vo.OptVO" alias="optVO"/>
+		<typeAlias type="com.example.project2.vo.RecomentVO" alias="recomentVO"/>
+		<typeAlias type="com.example.project2.vo.RecommendVO" alias="recommendVO"/>
+		<typeAlias type="com.example.project2.vo.SecurityVO" alias="securityVO"/>
+		<typeAlias type="com.example.project2.vo.InsertHouseVO" alias="insertHouseVO"/>
+	</typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/example/project2/db/AlarmMapper.xml"/>
+    <mapper resource="com/example/project2/db/HouseMapper.xml"/>
+    <mapper resource="com/example/project2/db/ImgMapper.xml"/>
+    <mapper resource="com/example/project2/db/OptMapper.xml"/>
+    <mapper resource="com/example/project2/db/MgrMapper.xml"/>
+    <mapper resource="com/example/project2/db/SecurityMapper.xml"/>
+    <mapper resource="com/example/project2/db/RecomentMapper.xml"/>
+    <mapper resource="com/example/project2/db/RecommendMapper.xml"/>
+    <mapper resource="com/example/project2/db/MemberMapper.xml"/>
+    <mapper resource="com/example/project2/db/InterestMapper.xml"/>
+  </mappers>
+</configuration>

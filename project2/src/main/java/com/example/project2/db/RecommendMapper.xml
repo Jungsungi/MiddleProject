@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recommend">
+
+	<!-- 매물을 조회수가 높은 순으로 조회하는 쿼리 -->
+  <select id="findByHit" resultType="recommendVO">
+  	select h.house_no, house_name, deposit, type, deal_type, floor, price, area, lat, lng, state, img_fname
+  	from house h, img i where h.house_no=i.house_no
+  	and img_no in (select min(img_no) from img group by house_no) order by hit desc
+  </select>
+  
+  
+  
+
+</mapper>

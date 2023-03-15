@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		const msg = $("#msg").val()
+		if(msg == "회원가입에 성공하였습니다."){
+			alert(msg)
+			location.href="/main"
+		}else{
+			alert(msg)
+			location.href="/insertMember"
+		}
+	});
+</script>
+<body>
+	<input type="hidden" id="msg" th:value="${msg}">
+</body>
+</html>

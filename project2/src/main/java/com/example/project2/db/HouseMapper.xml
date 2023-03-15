@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="house">
+
+	<!-- 집 매물 삭제하는 쿼리 -->
+  <delete id="deleteHouse">
+  	delete house where house_no = #{house_no}
+  </delete>
+  
+  <!-- 매물이 판매되었을 때 판매상태를 바꿔주는 쿼리 -->
+  <update id="changeSale" parameterType="houseVO">
+  	update house set state = 'N' where house_no = #{house_no}
+  </update>
+  
+  <!-- 매물 판매가 취소되었을 때 판매상태를 바꿔주는  쿼리 -->
+  <update id="changeNoSale" parameterType="houseVO">
+  	update house set state = 'Y' where house_no = #{house_no}
+  </update>
+  
+  <!-- 해당 매물의 작성자를 찾는 쿼리 -->
+  <select id="findId" resultType="String">
+  	select id from house where house_no = #{house_no}
+  </select>
+  
+  <!-- house_no로 매물 정보를 가져오는 쿼리 -->
+  <select id="findByHouseNo" resultType="houseVO">
+  	select * from house where house_no = #{house_no}
+  </select>
+  
+  <!-- 조회수 순으로 매물을 추천해주는 쿼리 -->
+
+  
+  <!-- 조회수를 올려주는 쿼리 -->
+  <update id="updateHit" parameterType="houseVO">
+  	update house set hit = hit+1 where house_no = #{house_no}
+  </update>
+  
+  <insert id="insertHouse" parameterType="insertHouseVO">
+  	insert into house (house_no,house_name,deposit,type,deal_type,floor,price,area,aspect,loc,detail,id,house_regdate,input_date,lat,lng,mgr) values(#{house_no},#{house_name},#{deposit},#{type},#{deal_type},#{floor},#{price},#{area},#{aspect},#{loc},#{detail},#{id},#{house_regdate},#{input_date},#{lat},#{lng},#{mgr})
+  </insert>
+  
+  <select id="getNextNo" resultType="Integer">
+  	select nvl(max(house_no),0)+1 from house
+  </select>
+
+</mapper>
